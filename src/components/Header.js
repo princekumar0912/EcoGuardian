@@ -31,7 +31,9 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
           <Link to="/home">Home</Link>
           <Link to="/complain">Complain</Link>
           <Link to="/trackcomplaint">Preview</Link>
+          <Link to="/about">Blogs</Link>
           <Link to="/about">About</Link>
+
           {isLoggedIn ? (
             <a onClick={handleLogout}>Logout</a>
           ) : (
