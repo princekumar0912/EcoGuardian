@@ -26,7 +26,7 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
   return (
     <div className="mainheaderbody">
       <div className="topnav" id="myTopnav">
-        <h3 className="logo">EcoGuardian</h3>
+        <h3 className="logo">Eco<span>Guardian</span></h3>
         <div className="nav-links">
           <Link to="/home">Home</Link>
           <Link to="/complain">Complain</Link>

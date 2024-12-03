@@ -11,7 +11,7 @@ function About() {
           <div className="row content">
             <div className="col-lg-6">
               <p>
-                The ‘WASTE MANAGEMENT SYSTEM’ is a web application aimed to provide a
+                The ‘EcoGuardian’ is a web application aimed to provide a
                 digital way of complaining the concerns of general citizens to their
                 relative municipalities.
               </p>

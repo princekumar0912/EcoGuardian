@@ -45,6 +45,7 @@ const TrackComplaint = () => {
   return (
     <>
       <ToastContainer />
+
       <div className="trackComplaintContainer">
         <h2>Track Your Complaint</h2>
         <div className="inputGroup">
@@ -63,7 +64,7 @@ const TrackComplaint = () => {
         {complaintData && (
           <div className="complaintDetails">
             <h3>Complaint Details</h3>
-            <p className='bg-dark text-light p-3'><strong>Status:</strong> {complaintData.status}</p>
+            <h4>Status: {complaintData.status}</h4>
             <p><strong>Name:</strong> {complaintData.name}</p>
             <p><strong>Email:</strong> {complaintData.email}</p>
             <p><strong>Contact:</strong> {complaintData.contact}</p>

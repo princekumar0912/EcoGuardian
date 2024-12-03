@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { format } from "date-fns";
+import { TailSpin } from 'react-loader-spinner';
 
 // Initial state for the form
 const initialState = {
@@ -19,6 +20,8 @@ const initialState = {
 };
 
 const Complain = () => {
+
+  const [loading, setLoading] = useState(false);
   const [state, setState] = useState(initialState);
   const [images, setImages] = useState([]); // Multiple images state
   const [video, setVideo] = useState(null);
@@ -48,7 +51,7 @@ const Complain = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     if (!name || !email || !contact || !address || !description) {
       toast.error("Please provide value in each input field");
       return;
@@ -145,7 +148,7 @@ const Complain = () => {
       // Store complaint data in Firebase
       await set(newComplaintRef, formData);
       toast.success("Complaint registered successfully");
-      alert(" please save the complaint id for future reference and to track your complaint \n" + "complaint ID=  " + complaintId);
+      alert("plesse save your complaint ID=  " + complaintId);
 
       setTimeout(() => {
         navigate('/home');
@@ -155,6 +158,7 @@ const Complain = () => {
       setError(err.message);
       toast.error("Error uploading files: " + err.message);
     } finally {
+      setLoading(false);
       setUploading(false);
       setUploadProgress(0);
     }
@@ -163,122 +167,112 @@ const Complain = () => {
   return (
     <>
       <ToastContainer />
-      <div className="mainHeader">
-        <section className="container maincontanier my-2 bgcolor w-50 text-light p-2">
-          <form className="row g-3 p-2" method="post" onSubmit={handleSubmit}>
-            <div className="col-md-6">
-              <label htmlFor="Name" className="form-label">Name</label>
-              <input
-                type="text"
-                placeholder='Complainant Name'
-                name='name'
-                className="form-control"
-                id="name"
-                required
-                value={name}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="col-md-6">
-              <label htmlFor="email" className="form-label">Email</label>
-              <div className="input-group">
-                <span className="input-group-text">@</span>
+      <div>{loading && (
+        <div className="newloader">
+          <TailSpin height={50} width={50} color="green" ariaLabel="loading" />
+        </div>
+      )}
+        <div className="complain-mainHeader">
+          <section className="container maincontanier  bgcolor w-50 text-light p-2">
+            <form className="row g-3 p-2" method="post" onSubmit={handleSubmit} style={{ opacity: loading ? 0.5 : 1 }}>
+              <p>Register complaint and Become a <span>Ecoranger</span> </p>
+              <div className="col-md-6">
+                <label htmlFor="Name" className="form-label">Name</label>
                 <input
-                  type="email"
-                  placeholder='Complainant email'
+                  type="text"
+                  placeholder='Complainant Name'
+                  name='name'
                   className="form-control"
-                  id="email"
-                  name="email"
-                  value={email}
-                  onChange={handleInputChange}
+                  id="name"
                   required
+                  value={name}
+                  onChange={handleInputChange}
                 />
               </div>
-            </div>
-            <div className="col-md-6">
-              <label htmlFor="contact" className="form-label">Contact</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder='Complainant contact'
-                value={contact}
-                onChange={handleInputChange}
-                name="contact"
-                id="contact"
-                maxLength="10"
-              />
-            </div>
-            <div className="col-12">
-              <label htmlFor="address" className="form-label">Address/Location</label>
-              <input
-                type="text"
-                className="form-control"
-                name="address"
-                id="address"
-                value={address}
-                onChange={handleInputChange}
-                placeholder="Address/Location of incident with landmark"
-              />
-            </div>
-            <div className="col-12">
-              <label htmlFor="description" className="form-label">Description of complaint</label>
-              <textarea
-                className="form-control"
-                value={description}
-                onChange={handleInputChange}
-                id="description"
-                name="description"
-                placeholder='Enter the Description of problem'
-                rows="3"
-              ></textarea>
-            </div>
-            <div className="col-md-5">
-              <label htmlFor="images" className="form-label">Upload Images</label>
-              <input
-                type="file"
-                id="images"
-                name="images"
-                accept="image/*"
-                multiple // Allow multiple files
-                onChange={handleFileChange}
-              />
 
-            </div>
-            <div className="col-md-5">
-              <label htmlFor="video" className="form-label">Upload Video</label>
-              <input
-                type="file"
-                id="video"
-                name="video"
-                accept="video/*"
-                onChange={handleFileChange}
-              />
-            </div>
-            <div className="text-center mt-4">
-              <button type="submit" className="buttonsubmit" disabled={uploading}>
-                {uploading ? `Uploading ${Math.round(uploadProgress)}%` : 'Submit'}
-              </button>
-            </div>
-            {uploading && (
-              <div className="progress mt-3">
-                <div
-                  className="progress-bar bg-success"
-                  role="progressbar"
-                  style={{ width: `${uploadProgress}%` }}
-                  aria-valuenow={uploadProgress}
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                >
-                  {Math.round(uploadProgress)}%
+              <div className="col-md-6">
+                <label htmlFor="email" className="form-label">Email</label>
+                <div className="input-group">
+                  <span className="input-group-text">@</span>
+                  <input
+                    type="email"
+                    placeholder='Complainant email'
+                    className="form-control"
+                    id="email"
+                    name="email"
+                    value={email}
+                    onChange={handleInputChange}
+                    required
+                  />
                 </div>
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="contact" className="form-label">Contact</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder='Complainant contact'
+                  value={contact}
+                  onChange={handleInputChange}
+                  name="contact"
+                  id="contact"
+                  maxLength="10"
+                />
+              </div>
+              <div className="col-6">
+                <label htmlFor="address" className="form-label">Address/Location</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="address"
+                  id="address"
+                  value={address}
+                  onChange={handleInputChange}
+                  placeholder="Address/Location of incident with landmark"
+                />
+              </div>
+              <div className="col-12">
+                <label htmlFor="description" className="form-label">Description of complaint</label>
+                <textarea
+                  className="form-control"
+                  value={description}
+                  onChange={handleInputChange}
+                  id="description"
+                  name="description"
+                  placeholder='Enter the Description of problem'
+                  rows="3"
+                ></textarea>
+              </div>
+              <div className="col-md-5">
+                <label htmlFor="images" className="form-label">Upload Images</label>
+                <input
+                  type="file"
+                  id="images"
+                  name="images"
+                  accept="image/*"
+                  multiple // Allow multiple files
+                  onChange={handleFileChange}
+                />
 
               </div>
-            )}
-          </form>
-        </section>
+              <div className="col-md-5">
+                <label htmlFor="video" className="form-label">Upload Video</label>
+                <input
+                  type="file"
+                  id="video"
+                  name="video"
+                  accept="video/*"
+                  onChange={handleFileChange}
+                />
+              </div>
+              <div className="text-center mt-4">
+                <button type="submit" className="buttonsubmit" disabled={uploading}  >submit
+                </button>
+              </div>
+            </form>
+          </section>
+        </div>
       </div>
-
     </>
   );
 }

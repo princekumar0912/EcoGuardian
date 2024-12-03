@@ -9,13 +9,13 @@ function HeroSection() {
         <div className="container">
           <div className="row">
             <div
-              className="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
+              className="col-lg-7 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
               data-aos="fade-up"
               data-aos-delay={200}
             >
-              <h1>Your Voice, Our Action-Together for a Greener Future </h1>
+              <h1><span3>Your Voice,</span3> <span>Our Action</span>-Together for a <span2>Greener Future</span2> </h1>
               <h2>Empowering Communities for a Greener Tomorrow</h2>
-              <div className="d-flex justify-content-center justify-content-lg-start">
+              {/* <div className="d-flex justify-content-center justify-content-lg-start">
                 <a href=" " className="btn-get-started scrollto">
                   Get Started
                 </a>
@@ -26,19 +26,19 @@ function HeroSection() {
                   <i className="bi bi-play-circle" />
                   <span>Watch Video</span>
                 </a>
-              </div>
+              </div> */}
             </div>
-            <div
+            {/* <div
               className="col-lg-6 order-1 order-lg-2 hero-img"
               data-aos="zoom-in"
               data-aos-delay={200}
             >
               <img
-                src="https://images.pexels.com/photos/8395838/pexels-photo-8395838.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+                src="/assets/img/41342.jpg"
                 className="img-fluid animated"
-                alt=""
+                alt="image"
               />
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
